@@ -6,6 +6,7 @@ import pprint
 if __name__ == "__main__":
     db_session.global_init('db/site.db')
     all_dates = get_all_dates()
+    print(all_dates)
     for date in all_dates:
         date = date.split('-')
         date[-1] = '20' + date[-1]

@@ -5,6 +5,9 @@ from data import db_session
 from data.users import User
 from forms.juri import JuriForm
 import json
+from funcs_back import *
+from db_funcs import *
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -18,21 +21,28 @@ path = f'http://{host}:{port}'
 # ГЛАВНАЯ СТРАНИЦА
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    options = {1: "asdf", 2: "fda"}  # ДАТЫ
+    options = {i + 1: el for i, el in enumerate(get_all_dates())}
     date = 0
     if request.method == "POST":
-        date = request.form.get('xxx')
-        print(date)
+        date = int(request.form.get('xxx'))
     data = []
-    # if date == 0:
-    #     for el in options.values():
-    #         data.append(func(el)[::-1]) # по дате получаем окна
-    #     choose_date = options.values()
-    # else:
-    #     data.append(func(options[date])[::-1])  # по дате получаем окна
-    #     choose_date = [options[date]]
-    data.append([[(1, 1), (1, 0), (2, 0)], [(3, 0), (3, 1), (3, 1)], [(4, 1), (4, 0), (5, 0)]][::-1])
-    choose_date = ["11-11-1111"]
+    if date == 0:
+        for el2 in options.values():
+            el = el2.split('-')
+            el[-1] = '20' + el[-1]
+            el = "-".join(el)
+            el = datetime.datetime.strptime(el, "%d-%m-%Y")
+            data.append(make_matrix_for_windows(el)[::-1]) # по дате получаем окна
+        choose_date = list(options.values())
+    else:
+        el = options[date]
+        el = el.split('-')
+        el[-1] = '20' + el[-1]
+        el = "-".join(el)
+        el = datetime.datetime.strptime(el, "%d-%m-%Y")
+        data.append(make_matrix_for_windows(el)[::-1])  # по дате получаем окна
+        choose_date = [options[date]]
+
     return render_template('index.html', option=options, dates=data, choose_date=choose_date)
 
 
@@ -112,5 +122,5 @@ def add():
 
 
 if __name__ == '__main__':
-    db_session.global_init("db/database.db")
+    db_session.global_init("db/site.db")
     app.run(port=int(port), host=host)
