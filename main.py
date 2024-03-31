@@ -16,14 +16,20 @@ path = f'http://{host}:{port}'
 # ГЛАВНАЯ СТРАНИЦА
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    options = {1: "asdf", 2: "fda"} # ДАТЫ
-    flag = 0
+    options = {1: "asdf", 2: "fda"}  # ДАТЫ
+    date = 0
     if request.method == "POST":
         date = request.form.get('xxx')
         print(date)
-    if flag == 0:
-        windows = []
-    return render_template('index.html', option=options)
+    data = []
+    # if date == 0:
+    #     for el in options.values():
+    #         data.append(func(el)) # по дате получаем окна
+    # else:
+    #     data.append(func(options[date]))  # по дате получаем окна
+    data.append([[(1, 1), (1, 0), (2, 0)], [(3, 0), (3, 1), (3, 1)], [(4, 1), (4, 0), (5, 0)]][::-1])
+    print(data)
+    return render_template('index.html', option=options, dates=data)
 
 
 # ТУТ БУДЕТ ЛИЧНАЯ СТРАНИЧКА ПОЛЬЗОВАТЕЛЯ
