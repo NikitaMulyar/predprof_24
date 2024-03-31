@@ -91,9 +91,12 @@ def logout():
     return redirect("/")
 
 @app.route('/rooms', methods=['GET'])
-def add():
+def rooms():
     return render_template('rooms.html', title='Комнаты')
 
+@app.route('/add')
+def add():
+    return render_template('add.html')
 
 if __name__ == '__main__':
     db_session.global_init("db/database.db")
