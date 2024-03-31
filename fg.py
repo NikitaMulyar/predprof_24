@@ -21,21 +21,27 @@ def rooms(json_response):
     kv = json_response["message"]["windows_for_flat"]["data"]
     rm = 0
     room = 0
+    floor = 0
     rooms = []
+    mnmp = {}
     for w in json_response["message"]["windows"]["data"]:
+        floor += 1
         A = json_response["message"]["windows"]["data"][w]
         ind = 0
         for it in kv:
+            room += 1
             now_kv = False
+            mnmp[(floor, room)] = []
             for i in range(it):
                 if A[ind]:
                     now_kv = True
+                mnmp[(floor, room)].append(A[ind])
                 ind += 1
-            room += 1
             if now_kv:
                 rm += 1
                 rooms.append(room)
-    mp = {"len": rm, "rooms": rooms, "data": datetime.fromtimestamp(json_response["message"]["date"]["data"]).strftime("%Y-%m-%d")}
+    #print(mnmp)
+    mp = {"data": datetime.fromtimestamp(json_response["message"]["date"]["data"]).strftime("%Y-%m-%d"), "len": rm, "rooms": rooms, "windows": mnmp}
     return mp
 
 
