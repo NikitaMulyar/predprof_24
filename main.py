@@ -3,6 +3,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from forms.user import RegisterForm, LoginForm
 from data import db_session
 from data.users import User
+from forms.juri import JuriForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -96,7 +97,8 @@ def rooms():
 
 @app.route('/add')
 def add():
-    return render_template('add.html')
+    form = JuriForm()
+    return render_template('add.html', form=form)
 
 if __name__ == '__main__':
     db_session.global_init("db/database.db")
