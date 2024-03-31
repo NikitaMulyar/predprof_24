@@ -4,6 +4,8 @@
   --primary: #6EEDE9;
   --secondary: #6EEDE9;
   --accent: #0C3745;
+  --lights: #F9ED57;
+  --nolights: #011318;
 }
 body {
  color: var(--text);
@@ -70,4 +72,15 @@ main > .container, main{
 }
 .dropdown-toggle, .dropdown-toggle:hover {
     color: var(--primary);
+}
+.lights {
+    background: var(--lights)!important;
+
+}
+.nolights {
+    background: var(--nolights) !important;
+    color: var(--background);
+}
+.table {
+    width: 40%;
 }

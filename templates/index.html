@@ -3,7 +3,27 @@
 
     <main>
         <div class="container">
-
+             <form action="" class="pb-3">
+                <select name="xxx">
+                    <option value="selectopt">select option</option>
+                    {%for i in range(8)%}
+                    <option value="dayi">dayi</option>
+                    {%endfor%}
+                </select>
+             </form>
+            <table class="table table-bordered">
+                {%for i in range(6) %}
+                <tr>
+                    {%for j in range(5)%}
+                    {%if (i%2 == 0 and j%2 == 1) or (i%2 == 1 and j%2 == 0)%}
+                    <td class="lights">i</td>
+                    {%else%}
+                    <td class="nolights">i</td>
+                    {%endif%}
+                    {%endfor%}
+                </tr>
+                {%endfor%}
+            </table>
         </div>
     </main>
 
