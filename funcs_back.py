@@ -62,15 +62,15 @@ def post_correct_data(number_of_light_rooms, rooms, date: datetime.datetime):
 
 
 def rooms(json_response):
-    kv = json_response["message"]["windows_for_flat"]["data"]
+    kv = json_response["windows_for_flat"]["data"]
     rm = 0
     room = 0
     floor = 0
     rooms = []
     mnmp = {}
-    for w in json_response["message"]["windows"]["data"]:
+    for w in json_response["windows"]["data"]:
         floor += 1
-        A = json_response["message"]["windows"]["data"][w]
+        A = json_response["windows"]["data"][w]
         ind = 0
         for it in kv:
             room += 1
@@ -84,5 +84,5 @@ def rooms(json_response):
             if now_kv:
                 rm += 1
                 rooms.append(room)
-    mp = {"date": datetime.fromtimestamp(json_response["message"]["date"]["data"]), "all": room,  "turned_on": rm, "rooms": rooms, "windows": mnmp}
+    mp = {"date": datetime.datetime.fromtimestamp(json_response["date"]["data"]), "all": room,  "turned_on": rm, "rooms": rooms, "windows": mnmp}
     return mp

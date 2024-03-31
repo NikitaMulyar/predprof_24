@@ -23,8 +23,8 @@ def put_to_db_date(date: datetime.datetime, description):
 
 def put_to_db_windows(date: datetime.datetime, states, floor_number, room_number):
     db_sess = db_session.create_session()
-    for el in states:
-        w = Window(date=date, state=el, floor_number=floor_number, room_number=room_number)
+    for i, el in enumerate(states):
+        w = Window(date=date, state=el, floor_number=floor_number, room_number=room_number, window_id=i)
         res = db_sess.query(Window).filter(Window == w).first()
         if res:
             continue
