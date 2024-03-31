@@ -3,16 +3,17 @@
 
     <main>
         <div class="container">
-             <form action="" class="pb-3">
+             <form action="/" class="pb-3" method="post">
                 <select name="xxx" class="btn1 btn">
-                    <option value="selectopt">select option</option>
-                    {%for i in range(8)%}
-                    <option value="dayi">dayi</option>
-                    {%endfor%}
+                    <option value="0">Все</option>
+                    {% for key, val in option.items() %}
+                        <option value="{{ key }}">{{ val }}</option>
+                    {% endfor %}
                 </select>
+                 <input type="submit" class="btn1 btn" value="Показать">
              </form>
             <table class="table table-bordered">
-                {%for i in range(6) %}
+                {% for i in range(6) %}
                 <tr>
                     {%for j in range(5)%}
                     {%if (i%2 == 0 and j%2 == 1) or (i%2 == 1 and j%2 == 0)%}

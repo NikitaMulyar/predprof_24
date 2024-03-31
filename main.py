@@ -16,7 +16,14 @@ path = f'http://{host}:{port}'
 # ГЛАВНАЯ СТРАНИЦА
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    options = {1: "asdf", 2: "fda"} # ДАТЫ
+    flag = 0
+    if request.method == "POST":
+        date = request.form.get('xxx')
+        print(date)
+    if flag == 0:
+        windows = []
+    return render_template('index.html', option=options)
 
 
 # ТУТ БУДЕТ ЛИЧНАЯ СТРАНИЧКА ПОЛЬЗОВАТЕЛЯ
@@ -74,11 +81,6 @@ def register():
 def logout():
     logout_user()
     return redirect("/")
-
-
-@app.route('/windows', methods=['GET'])
-def add():
-    return render_template('windows.html', title='Окна')
 
 
 @app.route('/rooms', methods=['GET'])
