@@ -24,12 +24,14 @@ def index():
     data = []
     # if date == 0:
     #     for el in options.values():
-    #         data.append(func(el)) # по дате получаем окна
+    #         data.append(func(el)[::-1]) # по дате получаем окна
+    #     choose_date = options.values()
     # else:
-    #     data.append(func(options[date]))  # по дате получаем окна
+    #     data.append(func(options[date])[::-1])  # по дате получаем окна
+    #     choose_date = [options[date]]
     data.append([[(1, 1), (1, 0), (2, 0)], [(3, 0), (3, 1), (3, 1)], [(4, 1), (4, 0), (5, 0)]][::-1])
-    print(data)
-    return render_template('index.html', option=options, dates=data)
+    choose_date = ["11-11-1111"]
+    return render_template('index.html', option=options, dates=data, choose_date=choose_date)
 
 
 # ТУТ БУДЕТ ЛИЧНАЯ СТРАНИЧКА ПОЛЬЗОВАТЕЛЯ

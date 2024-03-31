@@ -13,7 +13,8 @@
             <input type="submit" class="btn1 btn" value="Показать">
         </form>
         {% for one_date in dates %}
-        <table class="table table-bordered">
+        <p class="text-center">{{ choose_date[loop.index0] }}</p>
+        <table class="mx-auto table table-bordered">
             {% for floor in one_date %}
             <tr>
                 {%for window in floor%}
@@ -26,7 +27,7 @@
             </tr>
             {%endfor%}
         </table>
-        <table class="table table-striped table-sm">
+        <table class="mx-auto table table-striped table-sm">
                 <tr><th>Введенные данные</th><th>Вывод</th></tr>
                 <tr><td>На этаже N комнат</td><td>Свет горит в M комнатах</td></tr>
                 <tr><td>Окон для каждой комнаты на этаже:<br> {%for i in range(10)%}{{i}} {%endfor%}</td><td>Свет горит в комнатах: <br> {%for i in range(10)%}{{i}} {%endfor%}</td></tr>
