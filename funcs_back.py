@@ -2,7 +2,7 @@ import datetime
 
 from data import db_session
 from data.window import Window
-from predprof_24.data.room import Room
+from data.room import Room
 from requests import get, post
 import json
 

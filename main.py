@@ -7,6 +7,7 @@ from forms.juri import JuriForm
 import json
 from funcs_back import *
 from db_funcs import *
+import pprint
 
 
 app = Flask(__name__)
@@ -104,7 +105,7 @@ def logout():
 
 
 @app.route('/rooms', methods=['GET'])
-def rooms():
+def rooms_html():
     return render_template('rooms.html', title='Комнаты')
 
 
@@ -116,6 +117,12 @@ def add():
             data = form.body.data
             json_acceptable_string = data.replace("'", "\"")
             data = json.loads(json_acceptable_string)
+            res = rooms(data)
+            date = res["date"]
+            print(date)
+            for w in res['windows']:
+                put_to_db_windows(date, res['windows'][w], w[0], w[1])
+                put_to_db_room(date, w[1], len(res['windows'][w]))
         except Exception:
             return render_template('mistake.html')
     return render_template('add.html', form=form)
