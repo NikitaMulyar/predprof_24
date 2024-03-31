@@ -29,10 +29,10 @@
             </ul>
 
             <div class="text-end">
-                {%if not true %}
+                {%if not current_user.is_authenticated %}
                 <div class="btn-group">
-                    <a class="btn" href="/">Register</a>
-                    <a class="btn" href="/">Sign in</a>
+                    <a class="btn" href="/register">Register</a>
+                    <a class="btn" href="/login">Log in</a>
                 </div>
                 {%else%}
                 <div class="dropdown text-end">
