@@ -3,6 +3,8 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from forms.user import RegisterForm, LoginForm
 from data import db_session
 from data.users import User
+from forms.juri import JuriForm
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -16,7 +18,22 @@ path = f'http://{host}:{port}'
 # ГЛАВНАЯ СТРАНИЦА
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    options = {1: "asdf", 2: "fda"}  # ДАТЫ
+    date = 0
+    if request.method == "POST":
+        date = request.form.get('xxx')
+        print(date)
+    data = []
+    # if date == 0:
+    #     for el in options.values():
+    #         data.append(func(el)[::-1]) # по дате получаем окна
+    #     choose_date = options.values()
+    # else:
+    #     data.append(func(options[date])[::-1])  # по дате получаем окна
+    #     choose_date = [options[date]]
+    data.append([[(1, 1), (1, 0), (2, 0)], [(3, 0), (3, 1), (3, 1)], [(4, 1), (4, 0), (5, 0)]][::-1])
+    choose_date = ["11-11-1111"]
+    return render_template('index.html', option=options, dates=data, choose_date=choose_date)
 
 
 # ТУТ БУДЕТ ЛИЧНАЯ СТРАНИЧКА ПОЛЬЗОВАТЕЛЯ
@@ -76,14 +93,22 @@ def logout():
     return redirect("/")
 
 
-@app.route('/windows', methods=['GET'])
-def add():
-    return render_template('windows.html', title='Окна')
-
-
 @app.route('/rooms', methods=['GET'])
-def add():
+def rooms():
     return render_template('rooms.html', title='Комнаты')
+
+
+@app.route('/add', methods=['GET', 'POST'])
+def add():
+    form = JuriForm()
+    if form.validate_on_submit():
+        try:
+            data = form.body.data
+            json_acceptable_string = data.replace("'", "\"")
+            data = json.loads(json_acceptable_string)
+        except Exception:
+            return render_template('mistake.html')
+    return render_template('add.html', form=form)
 
 
 if __name__ == '__main__':

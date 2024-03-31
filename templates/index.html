@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+{%block content%}
+
+<main>
+    <div class="container">
+        <form action="/" class="pb-3" method="post">
+            <select name="xxx" class="btn1 btn">
+                <option value="0">Все</option>
+                {% for key, val in option.items() %}
+                <option value="{{ key }}">{{ val }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" class="btn1 btn" value="Показать">
+        </form>
+        {% for one_date in dates %}
+        <p class="text-center">{{ choose_date[loop.index0] }}</p>
+        <table class="mx-auto table table-bordered">
+            {% for floor in one_date %}
+            <tr>
+                {%for window in floor%}
+                {%if (window[1] == 1)%}
+                <td class="lights">{{ window[0] }}</td>
+                {%else%}
+                <td class="nolights">{{ window[0] }}</td>
+                {%endif%}
+                {%endfor%}
+            </tr>
+            {%endfor%}
+        </table>
+        <table class="mx-auto table table-striped table-sm">
+                <tr><th>Введенные данные</th><th>Вывод</th></tr>
+                <tr><td>На этаже N комнат</td><td>Свет горит в M комнатах</td></tr>
+                <tr><td>Окон для каждой комнаты на этаже:<br> {%for i in range(10)%}{{i}} {%endfor%}</td><td>Свет горит в комнатах: <br> {%for i in range(10)%}{{i}} {%endfor%}</td></tr>
+            </table>
+        {%endfor%}
+    </div>
+</main>
+
+{%endblock%}
