@@ -37,10 +37,9 @@ header {
     background-color: var(--accent) !important;
     color: var(--background) !important;
 }
-
-main > .container, main{
+main{
   padding-bottom: 5rem;
-  padding-top: 3rem;
+  padding-top: 8rem;
 }
 .kvas {
     vertical-align: center !important;
@@ -85,4 +84,19 @@ main > .container, main{
 }
 .table-sm {
     width: 70%;
+}
+option{
+    background: var(--accent);
+}
+option:hover{
+    background: var(--primary);
+}
+.w1 {
+    width: 100%;
+}
+.correct {
+    background: #A7FDAE;
+}
+.incorrect {
+    background: #FFA7A7;
 }

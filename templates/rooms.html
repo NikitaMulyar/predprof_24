@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+{%block content%}
+
+    <main>
+        <div class="container">
+            <table class="w1 table table-striped table-sm">
+                <thead>
+                <tr><th>Дата</th><th>Номер комнаты</th><th>Корректность</th></tr>
+                </thead>
+                {%for line in matrix%}
+                <tr><td>{{line[0]}}</td><td>{{line[1]}}</td>
+                    {%if line[2]%}
+                    <td class="correct">Корректно</td>
+                    {%else%}
+                    <td class="incorrect">Некорректно</td>
+                    {%endif%}
+                </tr>
+                {%endfor%}
+                </table>
+        </div>
+    </main>
+
+{%endblock%}
