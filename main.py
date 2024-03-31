@@ -7,7 +7,6 @@ from forms.juri import JuriForm
 import json
 from funcs_back import *
 from db_funcs import *
-import pprint
 
 
 app = Flask(__name__)
@@ -27,13 +26,20 @@ def index():
     if request.method == "POST":
         date = int(request.form.get('xxx'))
     data = []
+
+    data_print = []
     if date == 0:
         for el2 in options.values():
             el = el2.split('-')
             el[-1] = '20' + el[-1]
             el = "-".join(el)
             el = datetime.datetime.strptime(el, "%d-%m-%Y")
-            data.append(make_matrix_for_windows(el)[::-1]) # по дате получаем окна
+
+            put_to_db_date(date=el, description='')
+            res = rooms(get_data_by_day(el.day, el.month, el.year))
+            data_print.append([res['all'], res['turned_on'], res['rooms'],
+                               sum([len(res['windows'][el]) if el[0] == 1 else 0 for el in res['windows']])])
+            data.append(make_matrix_for_windows(el)[::-1])  # по дате получаем окна
         choose_date = list(options.values())
     else:
         el = options[date]
@@ -43,8 +49,11 @@ def index():
         el = datetime.datetime.strptime(el, "%d-%m-%Y")
         data.append(make_matrix_for_windows(el)[::-1])  # по дате получаем окна
         choose_date = [options[date]]
+        res = rooms(get_data_by_day(el.day, el.month, el.year))
+        data_print = [res['all'], res['turned_on'], res['rooms'], sum([len(res['windows'][el]) if el[0] == 1 else 0 for el in res['windows']])]
 
-    return render_template('index.html', option=options, dates=data, choose_date=choose_date)
+    return render_template('index.html', option=options, dates=data, choose_date=choose_date,
+                           data_print=data_print)
 
 
 # ТУТ БУДЕТ ЛИЧНАЯ СТРАНИЧКА ПОЛЬЗОВАТЕЛЯ
@@ -106,7 +115,7 @@ def logout():
 
 @app.route('/rooms', methods=['GET'])
 def rooms_html():
-    return render_template('rooms.html', title='Комнаты')
+    return render_template('rooms.html', title='Комнаты', matrix=make_matrix_for_rooms())
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -130,4 +139,15 @@ def add():
 
 if __name__ == '__main__':
     db_session.global_init("db/site.db")
+    all_dates = get_all_dates()
+    for date in all_dates:
+        date = date.split('-')
+        date[-1] = '20' + date[-1]
+        date = "-".join(date)
+        date = datetime.datetime.strptime(date, "%d-%m-%Y")
+        put_to_db_date(date=date, description='')
+        res = rooms(get_data_by_day(date.day, date.month, date.year))
+        for w in res['windows']:
+            put_to_db_windows(date, res['windows'][w], w[0], w[1])
+            put_to_db_room(date, w[1], len(res['windows'][w]))
     app.run(port=int(port), host=host)

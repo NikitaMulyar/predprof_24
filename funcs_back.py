@@ -31,7 +31,7 @@ def make_matrix_for_rooms():
     rooms = db_sess.query(Room).all()
     rooms = sorted(rooms, key=lambda r: (r.date, r.number))
     # Проверка корректности
-    rooms = [[r.date, r.number, True] for r in rooms]
+    rooms = sorted(list({[r.date, r.number, True] for r in rooms}), key=lambda r: r)
     db_sess.close()
     return rooms
 

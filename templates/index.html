@@ -29,8 +29,8 @@
         </table>
         <table class="mx-auto table table-striped table-sm">
                 <tr><th>Введенные данные</th><th>Вывод</th></tr>
-                <tr><td>На этаже N комнат</td><td>Свет горит в M комнатах</td></tr>
-                <tr><td>Окон для каждой комнаты на этаже:<br> {%for i in range(10)%}{{i}} {%endfor%}</td><td>Свет горит в комнатах: <br> {%for i in range(10)%}{{i}} {%endfor%}</td></tr>
+                <tr><td>На этаже {{ data_print[loop.index0][0] }} комнат</td><td>Свет горит в {{ data_print[loop.index0][1] }} комнатах</td></tr>
+                <tr><td>Окон для каждой комнаты на этаже:<br> {{ data_print[loop.index0][3] }} </td><td>Свет горит в комнатах: <br> {%for el in data_print[loop.index0][2] %}{{el}} {%endfor%}</td></tr>
             </table>
         {%endfor%}
     </div>
