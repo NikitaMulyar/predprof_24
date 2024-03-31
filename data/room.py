@@ -7,6 +7,7 @@ class Room(SqlAlchemyBase):
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
 
+    date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now())
     number = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
     window_number = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
 
