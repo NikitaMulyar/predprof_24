@@ -4,6 +4,7 @@ from forms.user import RegisterForm, LoginForm
 from data import db_session
 from data.users import User
 from forms.juri import JuriForm
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -91,14 +92,24 @@ def logout():
     logout_user()
     return redirect("/")
 
+
 @app.route('/rooms', methods=['GET'])
 def rooms():
     return render_template('rooms.html', title='Комнаты')
 
-@app.route('/add')
+
+@app.route('/add', methods=['GET', 'POST'])
 def add():
     form = JuriForm()
+    if form.validate_on_submit():
+        try:
+            data = form.body.data
+            json_acceptable_string = data.replace("'", "\"")
+            data = json.loads(json_acceptable_string)
+        except Exception:
+            return render_template('mistake.html')
     return render_template('add.html', form=form)
+
 
 if __name__ == '__main__':
     db_session.global_init("db/database.db")
