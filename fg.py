@@ -40,8 +40,7 @@ def rooms(json_response):
             if now_kv:
                 rm += 1
                 rooms.append(room)
-    #print(mnmp)
-    mp = {"data": datetime.fromtimestamp(json_response["message"]["date"]["data"]).strftime("%Y-%m-%d"), "len": rm, "rooms": rooms, "windows": mnmp}
+    mp = {"date": datetime.fromtimestamp(json_response["message"]["date"]["data"]).strftime("%Y-%m-%d"), "all": room,  "turned_on": rm, "rooms": rooms, "windows": mnmp}
     return mp
 
 
