@@ -4,7 +4,7 @@
   --primary: #6EEDE9;
   --secondary: #6EEDE9;
   --accent: #0C3745;
-  --lights: #F9ED57;
+  --lights: #FFF89A;
   --nolights: #011318;
 }
 body {
@@ -80,6 +80,9 @@ main > .container, main{
     background: var(--nolights) !important;
     color: var(--background);
 }
-.table {
+.table-bordered {
     width: 60%;
+}
+.table-sm {
+    width: 70%;
 }
