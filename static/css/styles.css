@@ -75,15 +75,11 @@ main > .container, main{
 }
 .lights {
     background: var(--lights)!important;
-
 }
 .nolights {
     background: var(--nolights) !important;
     color: var(--background);
 }
 .table {
-    width: 40%;
-}
-.dropd {
-
+    width: 60%;
 }

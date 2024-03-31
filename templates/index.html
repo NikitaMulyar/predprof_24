@@ -3,14 +3,18 @@
 
     <main>
         <div class="container">
+
              <form action="" class="pb-3">
                 <select name="xxx" class="btn1 btn">
-                    <option value="selectopt">select option</option>
+                    <option value="selectopt" >select option</option>
                     {%for i in range(8)%}
                     <option value="dayi">dayi</option>
                     {%endfor%}
                 </select>
              </form>
+
+            <!--здесь должна быть форма: вводится n, сабмитится,появляется n инпутов-->
+
             <table class="table table-bordered">
                 {%for i in range(6) %}
                 <tr>
@@ -24,6 +28,7 @@
                 </tr>
                 {%endfor%}
             </table>
+
         </div>
     </main>
 

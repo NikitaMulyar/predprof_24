@@ -75,12 +75,6 @@ def logout():
     logout_user()
     return redirect("/")
 
-
-@app.route('/windows', methods=['GET'])
-def add():
-    return render_template('windows.html', title='Окна')
-
-
 @app.route('/rooms', methods=['GET'])
 def add():
     return render_template('rooms.html', title='Комнаты')
